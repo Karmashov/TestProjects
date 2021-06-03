@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dev_pub?serverTimezone=Europe/Moscow
+    username: root
+    password: 1234
+
+  #  jpa:
+  #    show-sql: true
+  #    hibernate.ddl-auto: none
+
+  liquibase:
+    url: jdbc:mysql://localhost:3306/dev_pub?serverTimezone=Europe/Moscow
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    user: root
+    password: 1234
