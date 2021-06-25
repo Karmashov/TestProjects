@@ -40,19 +40,19 @@ public class ExchangeServiceImpl implements ExchangeService {
         User user = userRepository.findById(requestDto.getUser())
                 .orElseThrow(() -> new UserNotFoundException("Пользователь с id " + requestDto.getUser() + " не найден"));
 
-        Exchange exchange = new Exchange();
-        exchange.setUser(user);
-        exchange.setAmount(new BigDecimal(requestDto.getAmount()));
-        exchange.setBaseCurrency(requestDto.getBaseCurrency());
-        exchange.setTargetCurrency(requestDto.getTargetCurrency());
-        exchangeRepository.save(exchange);
-
         String pair = requestDto.getBaseCurrency().toUpperCase() + "_" + requestDto.getTargetCurrency().toUpperCase();
         String ratesResponse = getRates(pair);
 
         if (ratesResponse.equals("")) {
             throw new IncorrectCurrencyException("Не верная валюта");
         }
+
+        Exchange exchange = new Exchange();
+        exchange.setUser(user);
+        exchange.setAmount(new BigDecimal(requestDto.getAmount()));
+        exchange.setBaseCurrency(requestDto.getBaseCurrency());
+        exchange.setTargetCurrency(requestDto.getTargetCurrency());
+        exchangeRepository.save(exchange);
 
         String[] rate = ratesResponse.split(":");
 
