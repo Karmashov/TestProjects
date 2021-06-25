@@ -3,13 +3,18 @@ spring:
     url: jdbc:mysql://localhost:3306/exchange?serverTimezone=Europe/Moscow
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-  #  jpa:
-  #    show-sql: true
-  #    hibernate.ddl-auto: none
+#  jpa:
+#    hibernate.ddl-auto: create
+#    database-platform: org.hibernate.dialect.MySQL5Dialect
+#    show-sql: true
 
   liquibase:
     url: jdbc:mysql://localhost:3306/exchange?serverTimezone=Europe/Moscow
     change-log: classpath:db/changelog/db.changelog-master.yaml
     user: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+currency:
+  api: ${CURRENCY_API}
