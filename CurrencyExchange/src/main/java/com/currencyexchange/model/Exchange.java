@@ -22,4 +22,9 @@ public class Exchange {
     private String baseCurrency;
 
     private String targetCurrency;
+
+    @Override
+    public String toString() {
+        return baseCurrency + " " + targetCurrency;
+    }
 }
