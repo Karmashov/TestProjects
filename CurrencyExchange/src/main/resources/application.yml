@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-#    hibernate.ddl-auto: create
+#    hibernate.ddl-auto: update
 #    database-platform: org.hibernate.dialect.MySQL5Dialect
 #    show-sql: true
     properties:
@@ -14,11 +14,11 @@ spring:
         jdbc.time_zone: Europe/Moscow
         dialect: org.hibernate.dialect.MySQL55Dialect
 
-  liquibase:
-    url: jdbc:mysql://localhost:3306/exchange?serverTimezone=Europe/Moscow
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    user: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+#  liquibase:
+#    url: jdbc:mysql://localhost:3306/exchange?serverTimezone=Europe/Moscow
+#    change-log: db.changelog/db.changelog-master.yaml
+#    user: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
 
 currency:
   api: ${CURRENCY_API}

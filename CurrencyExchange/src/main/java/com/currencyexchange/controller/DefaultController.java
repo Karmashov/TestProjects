@@ -29,7 +29,7 @@ public class DefaultController {
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<?> getStatistics(@RequestParam String mode) {
-        return ResponseEntity.ok(statisticsService.getStatistics(mode));
+    public ResponseEntity<?> getStatistics(@RequestParam String mode, String currency) {
+        return ResponseEntity.ok(statisticsService.getStatistics(mode, currency));
     }
 }

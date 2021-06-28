@@ -1,8 +1,10 @@
 package com.currencyexchange.exception;
 
-public class IncorrectCurrencyException extends RuntimeException {
+import com.currencyexchange.dto.Response;
 
-    private static String message;
+public class IncorrectCurrencyException extends RuntimeException implements Response {
+
+    private static String message = "Не верная валюта";
 
     public IncorrectCurrencyException(String message) {
         super(message);

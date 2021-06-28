@@ -4,5 +4,5 @@ import com.currencyexchange.dto.Response;
 
 public interface StatisticsService {
 
-    Response getStatistics(String mode);
+    Response getStatistics(String mode, String currency);
 }

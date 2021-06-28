@@ -5,8 +5,10 @@ import com.currencyexchange.dto.Response;
 import com.currencyexchange.dto.ResponseFactory;
 import com.currencyexchange.exception.IncorrectCurrencyException;
 import com.currencyexchange.exception.UserNotFoundException;
+import com.currencyexchange.model.Currency;
 import com.currencyexchange.model.Exchange;
 import com.currencyexchange.model.User;
+import com.currencyexchange.repository.CurrencyRepository;
 import com.currencyexchange.repository.ExchangeRepository;
 import com.currencyexchange.repository.UserRepository;
 import com.currencyexchange.service.ExchangeService;
@@ -28,11 +30,15 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     private final UserRepository userRepository;
     private final ExchangeRepository exchangeRepository;
+    private final CurrencyRepository currencyRepository;
 
     @Autowired
-    public ExchangeServiceImpl(UserRepository userRepository, ExchangeRepository exchangeRepository) {
+    public ExchangeServiceImpl(UserRepository userRepository,
+                               ExchangeRepository exchangeRepository,
+                               CurrencyRepository currencyRepository) {
         this.userRepository = userRepository;
         this.exchangeRepository = exchangeRepository;
+        this.currencyRepository = currencyRepository;
     }
 
     @Override
@@ -50,8 +56,8 @@ public class ExchangeServiceImpl implements ExchangeService {
         Exchange exchange = new Exchange();
         exchange.setUser(user);
         exchange.setAmount(new BigDecimal(requestDto.getAmount()));
-        exchange.setBaseCurrency(requestDto.getBaseCurrency());
-        exchange.setTargetCurrency(requestDto.getTargetCurrency());
+        exchange.setBaseCurrency(getCurrency(requestDto.getBaseCurrency().toUpperCase()));
+        exchange.setTargetCurrency(getCurrency(requestDto.getTargetCurrency().toUpperCase()));
         exchangeRepository.save(exchange);
 
         String[] rate = ratesResponse.split(":");
@@ -73,5 +79,16 @@ public class ExchangeServiceImpl implements ExchangeService {
             e.printStackTrace();
         }
         return ratesResponse;
+    }
+
+    private Currency getCurrency(String name){
+        Currency currency = currencyRepository.findByName(name).orElse(null);
+        if (currency == null) {
+            currency = new Currency();
+            currency.setName(name);
+            currencyRepository.save(currency);
+        }
+
+        return currency;
     }
 }

@@ -19,12 +19,16 @@ public class Exchange {
 
     private BigDecimal amount;
 
-    private String baseCurrency;
+    @ManyToOne
+    @JoinColumn(name = "base_currency_id")
+    private Currency baseCurrency;
 
-    private String targetCurrency;
+    @ManyToOne
+    @JoinColumn(name = "target_currency_id")
+    private Currency targetCurrency;
 
-    @Override
-    public String toString() {
-        return baseCurrency + " " + targetCurrency;
-    }
+//    @Override
+//    public String toString() {
+//        return baseCurrency + " " + targetCurrency;
+//    }
 }
